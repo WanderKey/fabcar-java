@@ -64,7 +64,7 @@ public class CarController {
      * @return
      * @throws GatewayException
      */
-    @PostMapping
+    @PostMapping("/createCar")
     public Result createCar(@RequestBody Car car) throws GatewayException, CommitException {
         log.info("新增车辆信息，car: {}", car);
         carService.createCar(car);
