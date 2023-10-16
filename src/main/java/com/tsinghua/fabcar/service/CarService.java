@@ -31,4 +31,11 @@ public interface CarService {
      * @return
      */
     List<CarQueryResult> queryAllCars() throws GatewayException;
+
+    /**
+     * 修改车辆归属人信息
+     * @param car
+     * @return
+     */
+    Car ChangeCarOwner(Car car) throws GatewayException;
 }

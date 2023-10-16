@@ -80,4 +80,11 @@ public class CarController {
         List<CarQueryResult> carList = carService.queryAllCars();
         return Result.success(carList);
     }
+
+    @PutMapping("/changeCarOwner")
+    public Result changeCarOwner(@RequestBody Car car) throws GatewayException {
+        log.info("修改车辆归属信息");
+        Car newCar = carService.ChangeCarOwner(car);
+        return Result.success(newCar);
+    }
 }

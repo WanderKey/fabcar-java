@@ -48,4 +48,11 @@ public class CarServiceImpl implements CarService {
         String jsonData = StringUtils.newStringUtf8(resultData);
         return JSON.parseArray(jsonData, CarQueryResult.class);
     }
+
+    @Override
+    public Car ChangeCarOwner(Car car) throws GatewayException {
+        byte[] resultData = contract.evaluateTransaction("changeCarOwner", car.getKey(), car.getOwner());
+        String jsonData = StringUtils.newStringUtf8(resultData);
+        return  JSON.parseObject(jsonData, Car.class);
+    }
 }
