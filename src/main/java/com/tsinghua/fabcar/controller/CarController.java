@@ -14,6 +14,8 @@ import org.hyperledger.fabric.client.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/car")
 @Slf4j
@@ -69,5 +71,12 @@ public class CarController {
         log.info("新增车辆信息，car: {}", car);
         carService.createCar(car);
         return Result.success();
+    }
+
+    @GetMapping("/all")
+    public Result queryAllCars() throws GatewayException {
+        log.info("查询所有车辆信息");
+        List<Car> carList = carService.queryAllCars();
+        return Result.success(carList);
     }
 }

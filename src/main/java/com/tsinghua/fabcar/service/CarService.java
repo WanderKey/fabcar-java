@@ -3,6 +3,8 @@ package com.tsinghua.fabcar.service;
 import com.tsinghua.fabcar.dto.Car;
 import org.hyperledger.fabric.client.*;
 
+import java.util.List;
+
 public interface CarService {
 
     /**
@@ -22,4 +24,10 @@ public interface CarService {
      * @param car
      */
     void createCar(Car car) throws EndorseException, CommitException, SubmitException, CommitStatusException;
+
+    /**
+     * 查询全部车辆信息
+     * @return
+     */
+    List<Car> queryAllCars() throws GatewayException;
 }

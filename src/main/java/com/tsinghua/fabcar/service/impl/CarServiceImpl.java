@@ -10,6 +10,8 @@ import org.apache.tomcat.util.codec.binary.StringUtils;
 import org.hyperledger.fabric.client.*;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class CarServiceImpl implements CarService {
@@ -37,5 +39,12 @@ public class CarServiceImpl implements CarService {
 
         contract.submitTransaction("createCar", car.getKey(), car.getMake(), car.getModel(), car.getColor(), car.getOwner());
 
+    }
+
+    @Override
+    public List<Car> queryAllCars() throws GatewayException {
+        byte[] resultData = contract.evaluateTransaction("queryAllCars");
+        String jsonData = StringUtils.newStringUtf8(resultData);
+        return JSON.parseArray(jsonData, Car.class);
     }
 }
