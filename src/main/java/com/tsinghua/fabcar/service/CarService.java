@@ -16,4 +16,10 @@ public interface CarService {
      * @return
      */
     Car queryCarByKey(String key) throws GatewayException;
+
+    /**
+     * 新增车辆信息
+     * @param car
+     */
+    void createCar(Car car) throws EndorseException, CommitException, SubmitException, CommitStatusException;
 }

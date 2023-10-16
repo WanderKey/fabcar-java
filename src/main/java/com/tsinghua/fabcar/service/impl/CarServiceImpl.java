@@ -31,4 +31,11 @@ public class CarServiceImpl implements CarService {
         car.setKey(key);
         return car;
     }
+
+    @Override
+    public void createCar(Car car) throws EndorseException, CommitException, SubmitException, CommitStatusException {
+
+        contract.submitTransaction("createCar", car.getKey(), car.getMake(), car.getModel(), car.getColor(), car.getOwner());
+
+    }
 }

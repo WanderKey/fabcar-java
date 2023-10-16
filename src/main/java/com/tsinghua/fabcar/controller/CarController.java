@@ -53,9 +53,6 @@ public class CarController {
     public Result queryCarByKey(@PathVariable("key") String key) throws GatewayException {
 
         log.info("查询车辆信息，key: {}", key);
-/*        byte[] resultData = contract.evaluateTransaction("queryCar", key);
-        String jsonData = StringUtils.newStringUtf8(resultData);
-        JSONObject resultObj = JSON.parseObject(jsonData);*/
         Car car = carService.queryCarByKey(key);
         return Result.success(car);
     }
@@ -68,9 +65,9 @@ public class CarController {
      * @throws GatewayException
      */
     @PostMapping
-    public Result createCar(@RequestBody Car car) throws GatewayException {
+    public Result createCar(@RequestBody Car car) throws GatewayException, CommitException {
         log.info("新增车辆信息，car: {}", car);
-
+        carService.createCar(car);
         return Result.success();
     }
 }
