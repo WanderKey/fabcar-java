@@ -4,6 +4,7 @@ package com.tsinghua.fabcar.controller;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tsinghua.fabcar.dto.Car;
+import com.tsinghua.fabcar.dto.CarQueryResult;
 import com.tsinghua.fabcar.dto.Result;
 import com.tsinghua.fabcar.service.CarService;
 import com.tsinghua.fabcar.utils.FabricProperties;
@@ -76,7 +77,7 @@ public class CarController {
     @GetMapping("/all")
     public Result queryAllCars() throws GatewayException {
         log.info("查询所有车辆信息");
-        List<Car> carList = carService.queryAllCars();
+        List<CarQueryResult> carList = carService.queryAllCars();
         return Result.success(carList);
     }
 }

@@ -1,6 +1,7 @@
 package com.tsinghua.fabcar.service;
 
 import com.tsinghua.fabcar.dto.Car;
+import com.tsinghua.fabcar.dto.CarQueryResult;
 import org.hyperledger.fabric.client.*;
 
 import java.util.List;
@@ -29,5 +30,5 @@ public interface CarService {
      * 查询全部车辆信息
      * @return
      */
-    List<Car> queryAllCars() throws GatewayException;
+    List<CarQueryResult> queryAllCars() throws GatewayException;
 }

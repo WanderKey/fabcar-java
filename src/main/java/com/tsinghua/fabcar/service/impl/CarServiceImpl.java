@@ -3,6 +3,7 @@ package com.tsinghua.fabcar.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.tsinghua.fabcar.dto.Car;
+import com.tsinghua.fabcar.dto.CarQueryResult;
 import com.tsinghua.fabcar.service.CarService;
 import com.tsinghua.fabcar.utils.FabricProperties;
 import lombok.AllArgsConstructor;
@@ -42,9 +43,9 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public List<Car> queryAllCars() throws GatewayException {
+    public List<CarQueryResult> queryAllCars() throws GatewayException {
         byte[] resultData = contract.evaluateTransaction("queryAllCars");
         String jsonData = StringUtils.newStringUtf8(resultData);
-        return JSON.parseArray(jsonData, Car.class);
+        return JSON.parseArray(jsonData, CarQueryResult.class);
     }
 }
