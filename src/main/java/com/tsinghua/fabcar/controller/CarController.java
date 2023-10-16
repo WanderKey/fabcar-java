@@ -1,17 +1,18 @@
 package com.tsinghua.fabcar.controller;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.tsinghua.fabcar.dto.Car;
 import com.tsinghua.fabcar.dto.Result;
+import com.tsinghua.fabcar.service.CarService;
 import com.tsinghua.fabcar.utils.FabricProperties;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hyperledger.fabric.client.Contract;
-import org.hyperledger.fabric.client.Gateway;
-import org.hyperledger.fabric.client.GatewayException;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.apache.tomcat.util.codec.binary.StringUtils;
+import org.hyperledger.fabric.client.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/car")
@@ -25,10 +26,51 @@ public class CarController {
 
     final FabricProperties fabricProperties;
 
+    @Autowired
+    private CarService carService;
+
+    /**
+     * 初始化账本
+     * @return
+     * @throws GatewayException
+     */
+
+    @PostMapping("/init")
+    public Result initLedeger() throws EndorseException, CommitException, SubmitException, CommitStatusException {
+        log.info("========初始化车辆账本===========");
+        carService.init();
+        return Result.success();
+    }
+
+    /**
+     * 根据key查询车辆信息
+     * @param key
+     * @return
+     * @throws GatewayException
+     */
+
     @GetMapping("/{key}")
     public Result queryCarByKey(@PathVariable("key") String key) throws GatewayException {
 
-        byte[] resultData = contract.evaluateTransaction("queryCar", key);
-        return Result.success(resultData);
+        log.info("查询车辆信息，key: {}", key);
+/*        byte[] resultData = contract.evaluateTransaction("queryCar", key);
+        String jsonData = StringUtils.newStringUtf8(resultData);
+        JSONObject resultObj = JSON.parseObject(jsonData);*/
+        Car car = carService.queryCarByKey(key);
+        return Result.success(car);
+    }
+
+
+    /**
+     * 创建车辆
+     * @param car
+     * @return
+     * @throws GatewayException
+     */
+    @PostMapping
+    public Result createCar(@RequestBody Car car) throws GatewayException {
+        log.info("新增车辆信息，car: {}", car);
+
+        return Result.success();
     }
 }
